@@ -53,4 +53,12 @@ jobs:
       - name: build front
         run: npm run build
 
-      # - name: 
+      - name: deploy to S3
+        run: |
+          bucket_name=$(cat tfout.json | jq -r .bucket_name.value)
+          aws s3 sync ./public/ s3://${bucket_name}/ --delete --quiet
+
+      - name: cache invalidation
+        run: |
+          cf_dist=$(cat tfout.json | jq -r .cf_dist.value)
+          aws cloudfront create-invalidation --distribution-id ${cf_dist} --paths "/*"
