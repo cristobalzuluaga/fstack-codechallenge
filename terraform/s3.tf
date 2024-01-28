@@ -29,7 +29,7 @@ data "aws_iam_policy_document" "cf_oac_data" {
     condition {
       test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values = [ "arn:aws:cloudfront::612061957948:distribution/${aws_cloudfront_origin_access_control.default.id}" ]
+      values = [ "arn:aws:cloudfront::612061957948:distribution/${aws_cloudfront_distribution.s3_distribution.id}" ]
     }
   }
 }
