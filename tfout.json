@@ -1,0 +1,12 @@
+{
+  "bucket_name": {
+    "sensitive": false,
+    "type": "string",
+    "value": "fstack-cchallenge-dev"
+  },
+  "cf_dist": {
+    "sensitive": false,
+    "type": "string",
+    "value": "E1NUFXF4VNB8SO"
+  }
+}

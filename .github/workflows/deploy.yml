@@ -27,3 +27,30 @@ jobs:
 
     - name: terraform apply
       run: terraform -chdir=terraform/ apply -auto-approve
+
+    - name: terraform output
+      run: terraform -chdir=terraform/ output -json > tfout.json
+
+    - uses: actions/upload-artifact@v4
+      with:
+        name: infra-outputs
+        path: tfout.json 
+
+    deploy-app:
+      runs-on: ubuntu-latest
+
+      steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: infra-outputs
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 15
+      - name: install dependencies
+        run: npm install
+      - name: build front
+        run: npm run build
+
+      # - name: 
