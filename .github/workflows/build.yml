@@ -14,13 +14,13 @@ jobs:
     - uses: actions/setup-node@v4
       with:
         node-version: 15
-    - names: install dependencies
+    - name: install dependencies
       run: npm install
-    - names: running lints
+    - name: running lints
       run: npm run lint
-    - names: running prettier
+    - name: running prettier
       run: npm run prettier
-    - names: running unit tests
+    - name: running unit tests
       run: npm run test
-    - names: compile frontend
+    - name: compile frontend
       run: npm run build
