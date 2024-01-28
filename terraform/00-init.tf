@@ -3,8 +3,8 @@ provider "aws" {
 
   default_tags {
     tags = {
-      env = "dev"
-    project = "fullstack-cc"
+      env     = var.env
+      project = "fullstack-cc"
     }
   }
 }
@@ -12,7 +12,6 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "tf-state-codechallenges"
-    key = "dev/terraform.tfstate"
     region = "us-east-1"
   }
 }

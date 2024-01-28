@@ -1,5 +1,5 @@
 locals {
-  s3_origin_id = "S3Origin_dev"
+  s3_origin_id = "S3Origin_${var.env}"
 }
 
 resource "aws_cloudfront_origin_access_control" "default" {
@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   enabled             = true
-  comment             = "fullstacklabs dev"
+  comment             = "fullstacklabs ${var.env}"
   default_root_object = "index.html"
 
   default_cache_behavior {
