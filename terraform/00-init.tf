@@ -12,7 +12,6 @@ provider "aws" {
 terraform {
   backend "s3" {
     bucket = "tf-state-codechallenges"
-    key = "dev/terraform.tfstate"
     region = "us-east-1"
   }
 }
