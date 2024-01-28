@@ -18,7 +18,7 @@ resource "aws_cloudfront_distribution" "s3_distribution" {
   }
 
   enabled             = true
-  comment             = "Some comment"
+  comment             = "fullstacklabs dev"
   default_root_object = "index.html"
 
   default_cache_behavior {
