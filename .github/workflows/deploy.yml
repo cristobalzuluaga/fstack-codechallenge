@@ -12,7 +12,7 @@ env:
   AWS_REGION: us-east-1
   TF_VAR_env: ${{ github.ref_name }}
 
-job:
+jobs:
   deploy-infra:
     runs-on: ubuntu-latest
 
