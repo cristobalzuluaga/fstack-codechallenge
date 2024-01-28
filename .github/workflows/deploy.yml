@@ -36,29 +36,30 @@ jobs:
         name: infra-outputs
         path: tfout.json 
 
-    deploy-app:
-      runs-on: ubuntu-latest
+  deploy-app:
+    runs-on: ubuntu-latest
+    needs: deploy-infra
 
-      steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: infra-outputs
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/download-artifact@v4
+      with:
+        name: infra-outputs
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 15
-      - name: install dependencies
-        run: npm install
-      - name: build front
-        run: npm run build
+    - uses: actions/setup-node@v4
+      with:
+        node-version: 15
+    - name: install dependencies
+      run: npm install
+    - name: build front
+      run: npm run build
 
-      - name: deploy to S3
-        run: |
-          bucket_name=$(cat tfout.json | jq -r .bucket_name.value)
-          aws s3 sync ./public/ s3://${bucket_name}/ --delete --quiet
+    - name: deploy to S3
+      run: |
+        bucket_name=$(cat tfout.json | jq -r .bucket_name.value)
+        aws s3 sync ./public/ s3://${bucket_name}/ --delete --quiet
 
-      - name: cache invalidation
-        run: |
-          cf_dist=$(cat tfout.json | jq -r .cf_dist.value)
-          aws cloudfront create-invalidation --distribution-id ${cf_dist} --paths "/*"
+    - name: cache invalidation
+      run: |
+        cf_dist=$(cat tfout.json | jq -r .cf_dist.value)
+        aws cloudfront create-invalidation --distribution-id ${cf_dist} --paths "/*"
