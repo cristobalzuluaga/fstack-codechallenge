@@ -59,6 +59,7 @@ jobs:
         bucket_name=$(cat tfout.json | jq -r .bucket_name.value)
         aws s3 sync ./build/ s3://${bucket_name}/ --delete --quiet
 
+
     - name: cache invalidation
       run: |
         cf_dist=$(cat tfout.json | jq -r .cf_dist.value)
