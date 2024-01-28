@@ -57,7 +57,8 @@ jobs:
     - name: deploy to S3
       run: |
         bucket_name=$(cat tfout.json | jq -r .bucket_name.value)
-        aws s3 sync ./public/ s3://${bucket_name}/ --delete --quiet
+        aws s3 sync ./build/ s3://${bucket_name}/ --delete --quiet
+
 
     - name: cache invalidation
       run: |
